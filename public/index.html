@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Школа программирования</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --card-bg: #ffffff;
+            --text: #2b2d42;
+        }
+
+        [data-theme="dark"] {
+            --primary: #4895ef;
+            --secondary: #560bad;
+            --accent: #b5179e;
+            --light: #121212;
+            --dark: #f8f9fa;
+            --success: #4361ee;
+            --card-bg: #1e1e1e;
+            --text: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #d9187e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background-color: var(--accent);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(30deg);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            animation: fadeIn 1.5s;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 2rem 0;
+        }
+
+        .course-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .course-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-html {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1621839673705-6617adf9e890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80');
+        }
+
+        .course-css {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1523437113738-bbd3cc89fb19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');
+        }
+
+        .course-js {
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+        }
+
+        .course-content {
+            padding: 1.5rem;
+        }
+
+        .course-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .course-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .course-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .course-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .special-card {
+            border: 2px solid var(--accent);
+        }
+
+        .special-card .course-btn {
+            background-color: var(--accent);
+        }
+
+        .special-card .course-btn:hover {
+            background-color: #d9187e;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text);
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox input {
+            width: auto;
+        }
+
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .user-avatar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+.user-avatar span {
+  font-weight: 600;
+  color: white;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo animate__animated animate__fadeInLeft">
+                <i class="fas fa-code"></i>
+                <span>CodeMaster</span>
+            </div>
+            <div class="auth-buttons animate__animated animate__fadeInRight">
+                <button class="btn btn-outline" onclick="openModal('loginModal')">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">
+                    <i class="fas fa-user-plus"></i> Регистрация
+                </button>
+            </div>
+        </div>
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+    </header>
+
+    <section class="hero animate__animated animate__fadeIn">
+        <div class="container">
+            <h1>Стань профессиональным разработчиком</h1>
+            <p>Изучайте программирование с нуля с помощью наших интерактивных курсов и станьте востребованным специалистом</p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <div class="courses-grid">
+            <!-- Курс HTML -->
+            <div class="course-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
+                <div class="course-img course-html"></div>
+                <div class="course-content">
+                    <h3>Курс HTML</h3>
+                    <p>Изучите основы создания веб-страниц с помощью HTML. С нуля до профессионального уровня.</p>
+                    <a href="/views/courses/html-course.html" class="course-btn">Начать обучение</a>
+                </div>
+            </div>
+
+            <!-- Курс CSS -->
+            <div class="course-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+                <div class="course-img course-css"></div>
+                <div class="course-content">
+                    <h3>Курс CSS</h3>
+                    <p>Освойте стилизацию веб-страниц. Современные техники верстки и анимации.</p>
+                    <a href="/views/courses/css-course.html" class="course-btn">Начать обучение</a>
+                </div>
+            </div>
+
+            <!-- Курс JavaScript -->
+            <div class="course-card animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+                <div class="course-img course-js"></div>
+                <div class="course-content">
+                    <h3>Курс JavaScript</h3>
+                    <p>Научитесь создавать интерактивные веб-приложения. От основ до продвинутых концепций.</p>
+                    <a href="/views/courses/js-course.html" class="course-btn">Начать обучение</a>
+                </div>
+            </div>
+
+            <!-- Чат-помощник -->
+            <div class="course-card special-card animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+                <div class="course-content">
+                    <h3><i class="fas fa-robot"></i> Чат-помощник</h3>
+                    <p>Получите помощь по любым вопросам программирования от нашего AI-ассистента.</p>
+                    <a href="#" class="course-btn" onclick="openModal('chatModal'); return false;">Открыть чат</a>
+                </div>
+            </div>
+
+            <!-- Редактор кода -->
+            <div class="course-card special-card animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+                <div class="course-content">
+                    <h3><i class="fas fa-code"></i> Онлайн-редактор</h3>
+                    <p>Пишите и тестируйте код прямо в браузере. Поддержка HTML, CSS и JavaScript.</p>
+                    <a href="#" class="course-btn" onclick="openModal('codeModal'); return false;">Открыть редактор</a>
+                </div>
+            </div>
+
+            <!-- Итоговый тест -->
+            <div class="course-card animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+                <div class="course-content">
+                    <h3><i class="fas fa-graduation-cap"></i> Итоговый тест</h3>
+                    <p>Проверьте свои знания по всем курсам и получите сертификат.</p>
+                    <a href="/views/final-test.html" class="course-btn">Пройти тест</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="Введите ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="regFirstName">Имя</label>
+                    <input type="text" id="regFirstName" placeholder="Введите ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <label for="regLastName">Фамилия</label>
+                    <input type="text" id="regLastName" placeholder="Введите вашу фамилию" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" placeholder="Придумайте пароль (минимум 6 символов)" required minlength="6">
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Запомнить меня</label>
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="agreedToTerms" required>
+                    <label for="agreedToTerms">Я согласен с <a href="/terms" target="_blank">условиями использования</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+            </form>
+            <div style="text-align: center; margin-top: 1rem;">
+                <p>Или войдите с помощью:</p>
+                <button class="btn btn-outline" style="width: 100%;" onclick="googleAuth()">
+                    <i class="fab fa-google"></i> Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Вход в аккаунт</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="Введите ваш email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Пароль</label>
+                    <input type="password" id="loginPassword" placeholder="Введите ваш пароль" required>
+                </div>
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="loginRemember">
+                    <label for="loginRemember">Запомнить меня</label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-sign-in-alt"></i> Войти
+                </button>
+            </form>
+            <div style="text-align: center; margin-top: 1rem;">
+                <p>Нет аккаунта? <a href="#" onclick="closeModal('loginModal'); openModal('registerModal'); return false;">Зарегистрируйтесь</a></p>
+                <button class="btn btn-outline" style="width: 100%;" onclick="googleAuth()">
+                    <i class="fab fa-google"></i> Войти через Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно чата -->
+    <div id="chatModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-btn" onclick="closeModal('chatModal')">&times;</span>
+            <h2><i class="fas fa-robot"></i> Чат-помощник</h2>
+            <p>Задавайте вопросы по программированию и наш AI-ассистент поможет вам</p>
+            <div id="chat-container" style="height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 15px; margin: 15px 0; background-color: var(--card-bg);"></div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="chat-input" placeholder="Введите ваш вопрос..." style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                <button class="btn btn-primary" onclick="sendQuestion()">
+                    <i class="fas fa-paper-plane"></i> Отправить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно редактора кода -->
+    <div id="codeModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <span class="close-btn" onclick="closeModal('codeModal')">&times;</span>
+            <h2><i class="fas fa-code"></i> Онлайн-редактор кода</h2>
+            <div style="margin-bottom: 15px;">
+                <select id="language-select" style="padding: 10px; border-radius: 8px; border: 1px solid #ddd; background-color: var(--card-bg); color: var(--text);">
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 500px;">
+                <textarea id="code-editor" style="width: 100%; height: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 8px; font-family: 'Courier New', monospace; background-color: var(--card-bg); color: var(--text);" placeholder="Введите ваш код здесь..."></textarea>
+                <div id="output-panel" style="border: 1px solid #ddd; border-radius: 8px; padding: 15px; overflow-y: auto; background-color: var(--card-bg);">
+                    <h3 style="margin-bottom: 10px;">Результат:</h3>
+                    <div id="output-content"></div>
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="runCode()">
+                <i class="fas fa-play"></i> Выполнить код
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 CodeMaster. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Тема приложения
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        
+        applyTheme(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(currentTheme);
+        });
+
+        // Модальные окна
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                closeModal(event.target.id);
+            }
+        }
+
+        // Чат-помощник
+        function sendQuestion() {
+            const question = document.getElementById('chat-input').value.trim();
+            if (!question) return;
+            
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML += `
+                <div style="margin-bottom: 15px; text-align: right;">
+                    <div style="background-color: var(--primary); color: white; display: inline-block; padding: 10px 15px; border-radius: 18px 18px 0 18px; max-width: 80%;">
+                        ${question}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('chat-input').value = '';
+            
+            // Имитация ответа AI
+            setTimeout(() => {
+                chatContainer.innerHTML += `
+                    <div style="margin-bottom: 15px; text-align: left;">
+                        <div style="background-color: var(--card-bg); border: 1px solid #ddd; display: inline-block; padding: 10px 15px; border-radius: 18px 18px 18px 0; max-width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                            <strong>AI-ассистент:</strong> Я проанализировал ваш вопрос о "${question}". Рекомендую изучить соответствующий раздел в наших курсах.
+                        </div>
+                    </div>
+                `;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Редактор кода
+        function runCode() {
+            const language = document.getElementById('language-select').value;
+            const code = document.getElementById('code-editor').value;
+            const output = document.getElementById('output-content');
+            
+            try {
+                output.innerHTML = '';
+                
+                if (language === 'html') {
+                    output.innerHTML = code;
+                } else if (language === 'css') {
+                    const style = document.createElement('style');
+                    style.textContent = code;
+                    output.appendChild(style);
+                    output.innerHTML += '<p>Стили успешно применены</p>';
+                } else if (language === 'javascript') {
+                    const result = eval(code);
+                    output.innerHTML = `<p>Результат выполнения: ${result}</p>`;
+                }
+            } catch (error) {
+                output.innerHTML = `<p style="color: var(--accent);">Ошибка: ${error.message}</p>`;
+            }
+        }
+
+        // Загрузка прогресса
+        document.addEventListener('DOMContentLoaded', () => {
+            // Здесь будет загрузка реального прогресса с сервера
+            // Пока используем mock-данные
+            setTimeout(() => {
+                document.getElementById('html-progress').style.width = '65%';
+                document.getElementById('html-percent').textContent = '65%';
+            }, 500);
+
+            
+            // Обработка форм
+            document.getElementById('registerForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alert('Регистрация успешна! На ваш email отправлено письмо с подтверждением.');
+                closeModal('registerModal');
+            });
+            
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                alert('Вход выполнен успешно!');
+                closeModal('loginModal');
+            });
+            checkAuth();
+            document.addEventListener('DOMContentLoaded', () => {
+  checkAuth();
+  
+  // Инициализация всех модальных окон
+  initModals();
+  
+  // Проверяем авторизацию каждые 5 минут
+  setInterval(checkAuth, 300000);
+});
+
+
+        });
+
+        // Google Auth
+        function googleAuth() {
+            alert('Перенаправление на страницу авторизации Google...');
+            // В реальном приложении: window.location.href = '/auth/google';
+            // Добавьте в конец script
+function updateAuthButtons(isLoggedIn) {
+  const authButtons = document.querySelector('.auth-buttons');
+  if (isLoggedIn) {
+    authButtons.innerHTML = `
+      <button class="btn btn-outline" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Выйти
+      </button>
+    `;
+  } else {
+    authButtons.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('loginModal')">
+        <i class="fas fa-sign-in-alt"></i> Войти
+      </button>
+      <button class="btn btn-primary" onclick="openModal('registerModal')">
+        <i class="fas fa-user-plus"></i> Регистрация
+      </button>
+    `;
+  }
+}
+
+async function checkAuth() {
+  try {
+    const response = await fetch('/api/auth/check', {
+      credentials: 'include'
+    });
+    const data = await response.json();
+    updateAuthButtons(data.isAuthenticated);
+  } catch (err) {
+    console.error('Auth check failed:', err);
+  }
+}
+
+async function logout() {
+  try {
+    await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+    updateAuthButtons(false);
+  } catch (err) {
+    console.error('Logout failed:', err);
+  }
+}
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Регистрация...';
+
+  try {
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('regEmail').value,
+        password: document.getElementById('regPassword').value,
+        firstName: document.getElementById('regFirstName').value,
+        lastName: document.getElementById('regLastName').value
+      })
+    });
+
+    const data = await response.json();
+    
+    if (response.ok) {
+      alert('Регистрация успешна!');
+      closeModal('registerModal');
+      checkAuth(); // Обновляем статус авторизации
+    } else {
+      throw new Error(data.error || 'Ошибка регистрации');
+    }
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-user-plus"></i> Зарегистрироваться';
+  }
+});
+
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Вход...';
+
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value
+      })
+    });
+
+    const data = await response.json();
+    
+    if (response.ok) {
+      closeModal('loginModal');
+      checkAuth(); // Обновляем статус авторизации
+    } else {
+      throw new Error(data.error || 'Ошибка входа');
+    }
+  } catch (err) {
+    alert(err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
+  }
+});
+
+async function logout() {
+  try {
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include'
+    });
+    
+    if (response.ok) {
+      checkAuth(); // Обновляем статус авторизации
+    } else {
+      throw new Error('Ошибка выхода');
+    }
+  } catch (err) {
+    console.error('Logout error:', err);
+  }
+}
+
+function googleAuth() {
+  // Открываем новое окно для авторизации
+  const authWindow = window.open(
+    '/api/auth/google', 
+    'GoogleAuth',
+    'width=500,height=600'
+  );
+  
+  // Проверяем авторизацию каждые 500мс
+  const checkAuthInterval = setInterval(() => {
+    if (authWindow.closed) {
+      clearInterval(checkAuthInterval);
+      checkAuth(); // Проверяем статус после закрытия окна
+    }
+  }, 500);
+}
+
+async function checkAuth() {
+  try {
+    const response = await fetch('/api/auth/check', {
+      credentials: 'include'
+    });
+    const data = await response.json();
+    
+    // Обновляем UI
+    updateAuthButtons(data.isAuthenticated);
+    
+    // Если авторизованы - закрываем модальные окна
+    if (data.isAuthenticated) {
+      closeModal('loginModal');
+      closeModal('registerModal');
+    }
+  } catch (err) {
+    console.error('Auth check error:', err);
+  }
+}
+
+function updateAuthButtons(isLoggedIn) {
+  const authButtons = document.querySelector('.auth-buttons');
+  
+  if (isLoggedIn) {
+    authButtons.innerHTML = `
+      <button class="btn btn-outline" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Выйти
+      </button>
+    `;
+    
+    // Показываем аватар пользователя
+    showUserProfile();
+  } else {
+    authButtons.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('loginModal')">
+        <i class="fas fa-sign-in-alt"></i> Войти
+      </button>
+      <button class="btn btn-primary" onclick="openModal('registerModal')">
+        <i class="fas fa-user-plus"></i> Регистрация
+      </button>
+    `;
+  }
+}
+
+async function showUserProfile() {
+  try {
+    const response = await fetch('/api/user/me', {
+      credentials: 'include'
+    });
+    const user = await response.json();
+    
+    // Добавляем аватар в шапку
+    const header = document.querySelector('header');
+    const avatar = document.createElement('div');
+    avatar.className = 'user-avatar';
+    avatar.innerHTML = `
+      <span>${user.firstName}</span>
+      <img src="${user.avatar || 'https://i.imgur.com/8Km9tLL.png'}" alt="Avatar">
+    `;
+    header.appendChild(avatar);
+  } catch (err) {
+    console.error('Profile load error:', err);
+  }
+}
+    </script>
+</body>
+</html>

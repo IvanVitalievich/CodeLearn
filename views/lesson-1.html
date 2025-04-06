@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 1: Структура HTML</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Урок 1: Структура HTML</h1>
+        <a href="/html-course.html">← Назад к курсу</a>
+    </header>
+
+    <main>
+        <section class="theory">
+            <h2>Что такое HTML?</h2>
+            <p>HTML (HyperText Markup Language) — это язык разметки для создания веб-страниц.</p>
+            
+            <h3>Базовая структура:</h3>
+            <pre><code class="language-html">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Мой сайт&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Привет, мир!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </code></pre>
+        </section>
+
+        <button id="start-test" class="test-button">Пройти тест (20 вопросов)</button>
+    </main>
+
+    <!-- Модальное окно теста -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Тест по уроку 1</h2>
+            <form id="lesson-test">
+                <!-- Вопрос 1 -->
+                <div class="question">
+                    <p>1. Какой тег определяет основную структуру HTML-документа?</p>
+                    <input type="text" name="q1" placeholder="Введите тег...">
+                </div>
+                <!-- Остальные вопросы... -->
+                <button type="submit">Завершить тест</button>
+            </form>
+            <div id="test-results" style="display: none;">
+                <h3>Ваш результат: <span id="test-score">0</span>/20</h3>
+                <button id="show-answers">Показать правильные ответы</button>
+                <div id="correct-answers"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/lesson-test.js"></script>
+</body>
+</html>

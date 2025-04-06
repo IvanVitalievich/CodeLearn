@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс HTML</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .lesson-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+        }
+        .lesson-content {
+            display: none;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .test {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #3367d6;
+        }
+        .correct {
+            background-color: #4CAF50 !important;
+        }
+        .incorrect {
+            background-color: #f44336 !important;
+        }
+        .home-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <button class="home-btn" onclick="location.href='\\views/index.html'">← На главную</button>
+    <h1>Курс HTML</h1>
+    
+    <!-- Уроки остаются такими же как в предыдущем коде -->
+    <!-- Урок 1 -->
+    <div class="lesson-card" onclick="showLesson(1)">
+        <h2>Урок 1: Основы HTML</h2>
+        <div id="lesson1" class="lesson-content">
+            <!-- Содержимое урока 1 -->
+        </div>
+    </div>
+
+    <!-- Урок 2 -->
+    <div class="lesson-card" onclick="showLesson(2)">
+        <h2>Урок 2: Работа с текстом</h2>
+        <div id="lesson2" class="lesson-content">
+            <!-- Содержимое урока 2 -->
+        </div>
+    </div>
+
+    <!-- Урок 3 -->
+    <div class="lesson-card" onclick="showLesson(3)">
+        <h2>Урок 3: Ссылки и изображения</h2>
+        <div id="lesson3" class="lesson-content">
+            <!-- Содержимое урока 3 -->
+        </div>
+    </div>
+
+    <!-- Тест с исправленной логикой проверки -->
+    <div class="test">
+        <h2>Проверьте свои знания</h2>
+        <div id="question1">
+            <p>1. Какой тег используется для основного заголовка?</p>
+            <button data-correct="true" onclick="checkAnswer(this, 1)">&lt;h1&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 1)">&lt;head&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 1)">&lt;header&gt;</button>
+        </div>
+        
+        <div id="question2">
+            <p>2. Как создать ссылку на другую страницу?</p>
+            <button data-correct="false" onclick="checkAnswer(this, 2)">&lt;link&gt;</button>
+            <button data-correct="true" onclick="checkAnswer(this, 2)">&lt;a href="..."&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 2)">&lt;url&gt;</button>
+        </div>
+        
+        <div id="question3">
+            <p>3. Какой тег делает текст жирным?</p>
+            <button data-correct="false" onclick="checkAnswer(this, 3)">&lt;em&gt;</button>
+            <button data-correct="true" onclick="checkAnswer(this, 3)">&lt;strong&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 3)">&lt;bold&gt;</button>
+        </div>
+        
+        <div id="question4">
+            <p>4. Как добавить изображение на страницу?</p>
+            <button data-correct="false" onclick="checkAnswer(this, 4)">&lt;image&gt;</button>
+            <button data-correct="true" onclick="checkAnswer(this, 4)">&lt;img src="..."&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 4)">&lt;picture&gt;</button>
+        </div>
+        
+        <div id="question5">
+            <p>5. Какой тег определяет структуру HTML-документа?</p>
+            <button data-correct="true" onclick="checkAnswer(this, 5)">&lt;html&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 5)">&lt;body&gt;</button>
+            <button data-correct="false" onclick="checkAnswer(this, 5)">&lt;div&gt;</button>
+        </div>
+        
+        <p id="result"></p>
+    </div>
+    
+
+    <script>
+        // Показ/скрытие уроков
+        function showLesson(num) {
+            const lesson = document.getElementById(`lesson${num}`);
+            const allLessons = document.querySelectorAll('.lesson-content');
+            
+            allLessons.forEach(el => el.style.display = "none");
+            lesson.style.display = "block";
+            ProgressManager.saveProgress('html', num, ProgressManager.getCourseScore('html'));
+        }
+    
+        // Проверка ответов
+        let score = 0;
+        const totalQuestions = 5;
+        let answeredQuestions = 0;
+        
+        function checkAnswer(button, questionNum) {
+            const isCorrect = button.getAttribute('data-correct') === 'true';
+            const questionDiv = document.getElementById(`question${questionNum}`);
+            const buttons = questionDiv.querySelectorAll('button');
+            
+            
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add(
+                    btn.getAttribute('data-correct') === 'true' 
+                        ? 'correct' 
+                        : 'incorrect'
+                );
+            });
+            
+            if (isCorrect) score++;
+            answeredQuestions++;
+            
+            if (answeredQuestions === totalQuestions) {
+                const percentage = Math.round(score/totalQuestions*100);
+                ProgressManager.saveProgress('html', 3, percentage);
+                
+                document.getElementById('result').innerHTML = `
+                    <h3>Ваш результат: ${score} из ${totalQuestions} (${percentage}%)</h3>
+                    ${percentage >= 80 
+                        ? '<p>Отличный результат! Можете переходить к следующему уроку.</p>' 
+                        : '<p>Рекомендуем повторить материал.</p>'}
+                    <button onclick="location.reload()">Пройти тест снова</button>
+                `;
+            }
+        }
+    
+        // Загрузка прогресса при открытии страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            const progress = ProgressManager.loadProgress();
+            if (progress.lastCourse === 'html' && progress.lastLesson) {
+                showLesson(progress.lastLesson);
+            }
+        });
+    </script>
+</body>
+</html>
