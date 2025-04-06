@@ -21,6 +21,7 @@ const connectDB = async () => {
         lastName: 'System',
         isAdmin: true
       });
+      
       console.log('Default admin created');
     }
   } catch (err) {
