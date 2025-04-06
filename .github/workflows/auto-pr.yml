@@ -1,18 +1,14 @@
-name: Auto Pull Request
+name: Auto PR
 on:
   push:
-    branches:
-      - dev  # Триггер: при пуше в ветку dev
+    branches: [dev]
 jobs:
   create-pr:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+      - uses: peter-evans/create-pull-request@v5
         with:
-          title: "Automatic PR: обновление из dev"
-          body: "Этот PR создан автоматически через GitHub Actions"
-          base: main  # Ветка, в которую делаем PR
-          head: dev   # Ветка с изменениями
-          labels: "automated, needs-review"
+          title: "Auto PR: dev → main"
+          base: main
+          head: dev
